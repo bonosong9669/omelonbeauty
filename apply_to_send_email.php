@@ -81,7 +81,8 @@ try {
     $mail->Subject = $subject;                       // Set email format to HTML
     //  $mail->Subject = 'Here is the subject. hello world';
 
-    $mail->Body    = '이름 : <b> '.$apply_name.'</b><br>
+    $mail->Body    = '지원 : <b> '.$category.'</b><br>
+                      이름 : <b> '.$apply_name.'</b><br>
                       전화 : <b> '.$phone.'</b><br>
                       메일 : <b> '.$email.'</b>';
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';

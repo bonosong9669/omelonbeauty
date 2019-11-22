@@ -1,3 +1,5 @@
+<?php include_once 'mobile_check.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +25,10 @@
     color: #111;
   }
   .container {
-    padding: 80px 120px;
+    padding-top: 80px;
+    padding-bottom: 0px;
+    padding-left: 120px;
+    padding-right: 120px;
   }
   .person {
     border: 10px solid transparent;
@@ -166,7 +171,13 @@
     border-radius: 0;
     background-color: #000;
   }
-
+  #caption {
+    color:#bdbdbd;
+  }
+  #caption2 {
+    font-size: 12px;
+    color:#bdbdbd;
+  }
   /***********모바일 경우 ******************/
   @media (max-width: 768px) {
     #main_copy { /* 로고 글자 */
@@ -174,7 +185,10 @@
     }
     .navbar li a, .navbar .navbar-brand { /* 로고 글자 */
       color: #d5d5d5 !important;
-      font-size: 14px;
+      font-size: 10px;
+    }
+    .navbar-brand .logo {
+      font-size: 17px;
     }
    #carousel_img1 {
       margin-top: 30px;
@@ -189,7 +203,12 @@
     font-size: 15px;
    }
    #caption2 {
-    font-size: 13px;
+    font-size: 12px;
+    color:#bdbdbd;
+   }
+   .container {
+     padding-left: 35px;
+     padding-right: 35px;
    }
   }
   </style>
@@ -245,10 +264,19 @@
   <div class="row">
     <div class="col-md-4">
       <br>
-      <p id="caption2">접수가 잘 안 될 때는 아래 이메일로 접수하세요</p>
+
+      <?php if ($obj -> mobileConcertCheck() == "mobile") { ?>
+        <p id="caption2">*'지원하기'가 잘 안 될 때는<br> 아래 이메일로접수해주세요<br>
+        *이메일 제목에<strong>[오멜론뷰티크리에이터 지원자:이름]</strong>을 기입</p>
+      <?php }else{?>
+        <p id="caption2">*'지원하기'가 잘 안 될 때는 <br> 아래 이메일로 접수하세요<br>
+        *이메일 제목에 꼭 <br> <strong>[오멜론뷰티크리에이터 지원자:이름]</strong>을 기입해주세요</p>
+    <?php  } ?>
+
+
       <!--<p><span class="glyphicon glyphicon-map-marker"></span>Chicago, US</p>-->
-      <p><span class="glyphicon glyphicon-phone"></span>Phone: 010-2345-6789</p>
-      <p><span class="glyphicon glyphicon-envelope"></span>Email: bonosong@naver.com</p>
+      <!--<p><span class="glyphicon glyphicon-phone"></span>Phone: 010-2345-6789</p>-->
+      <p style="color:#bdbdbd;"><span class="glyphicon glyphicon-envelope"></span> &nbsp; bonosong@naver.com</p>
     </div>
 
     <!---  폼 입력     --->
@@ -302,17 +330,8 @@
 <img src="map.jpg" class="img-responsive" style="width:100%">-->
 
 
-
-
-
 <!-- Footer -->
-<footer class="text-center">
-  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a><br><br>
-  <p><a href="https://www.w3schools.com" data-toggle="tooltip" title="Visit w3schools" style="font-size:12px;color:rgb(0, 191, 255);">오멜론 스타 콘테스트@2020</a></p>
-</footer>
-</footer>
+<?php // include_once 'footer.html'; ?>
 
 <script>
 $(document).ready(function(){

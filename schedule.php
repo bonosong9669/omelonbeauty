@@ -1,8 +1,10 @@
+<?php include_once 'mobile_check.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>오멜론 뷰티크리에이터</title>
+  <title>오멜론 뷰티크리에이터_일정</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -175,7 +177,10 @@
     }
     .navbar li a, .navbar .navbar-brand { /* 로고 글자 */
       color: #d5d5d5 !important;
-      font-size: 14px;
+      font-size: 10px;
+    }
+    .navbar-brand .logo {
+      font-size: 17px;
     }
    #carousel_img1 {
       margin-top: 30px;
@@ -186,7 +191,10 @@
    #apply_end_text {
      font-size: 18px;
    }
-
+   .container {
+     padding-left: 20px;
+     padding-right: 20px;
+   }
   }
   </style>
 </head>
@@ -202,6 +210,8 @@
   <div class="container">
     <h3 class="text-center">선발대회 일정</h3>
 
+<p class="text-center">지원자격 19-39세 남녀<br></p>
+
     <p class="text-center">접수 시작 2019.12.01<br></p>
 <h3 class="text-center" id="apply_end_text">접수 마감 2019.12.31</h3>
 
@@ -211,15 +221,11 @@
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <p style="color:#fff;"><strong>예 심</strong></p>
-          <p style="color:#bdbdbd;">서경대학교 오디션홀</p>
-          <p style="color:#bdbdbd;">2020.02 (추후 공지)</p>
-          <!--<img src="flower_b_1.jpg" alt="Paris" width="400" height="300">-->
-          <!--<img src="kim_flower_white_schedule.png" alt="Paris" width="400" height="300">-->
-            <!--<img src="prize_n_3.jpg" alt="Paris" width="400" height="300">-->
-            <!--<img src="sch_2_1.jpg" alt="Paris" width="200" height="200">-->
-            <!--<img src="img/kim_flower_red2.png" alt="Paris" width="200" height="200">-->
-            <img src="img/kim_flower_yellow_new.png" alt="Paris" width="200" height="200">
+          <p style="color:#fff;margin-bottom:5px;"><strong>예 심</strong></p>
+        <!--  <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;">서경대학교 오디션홀</p>
+          <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;">2020.02 (추후 공지)</p>-->
+
+            <img src="img/schedule_img_1_w.jpg" alt="예심" width="200" height="200">
             <button class="btn" data-toggle="modal" data-target="#myModal_pre_contest">프로그램</button>
         </div>
       </div>
@@ -228,15 +234,11 @@
       </div>
       <div class="col-sm-4">
         <div class="thumbnail">
-          <p style="color:#fff;"><strong>본 심</strong></p>
-          <p style="color:#bdbdbd;">(추후 공지)</p>
-          <p style="color:#bdbdbd;">2020.02 (추후 공지)</p>
-            <!--<img src="flower_b_6.jpg" alt="New York" width="400" height="300">-->
-            <!--<img src="kim_flower_resd_schedule.png" alt="New York" width="400" height="300">-->
-            <!--<img src="prize_n_4.jpg" alt="Paris" width="400" height="300">-->
-            <!--<img src="sch_1_1.jpg" alt="Paris" width="200" height="200">-->
-              <!--<img src="img/kim_flower_red3_schedule.png" alt="Paris" width="200" height="200">-->
-              <img src="img/kim_flower_red_new.png" alt="Paris" width="200" height="200">
+          <p style="color:#fff;margin-bottom:5px;"><strong>본 심</strong></p>
+          <!--   <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;">(장소 추후 공지)</p>
+          <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;">2020.02 (추후 공지)</p> -->
+
+              <img src="img/schedule_img_2_w.jpg" alt="Paris" width="200" height="200">
           <button class="btn" data-toggle="modal" data-target="#myModal_final_contest">프로그램</button>
         </div>
       </div>
@@ -256,13 +258,24 @@
       <div class="modal-content text-center">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4><span class="glyphicon glyphicon-camera"></span> 예심 프로그램</h4>
+
+          <?php if ($obj -> mobileConcertCheck() == "mobile") { ?>
+            <p style="font-size:23px;"><span class="glyphicon glyphicon-camera"></span> 예심 프로그램</p>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;font-size:20px;">서경대학교 오디션홀</p>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;font-size:20px;">2020.02 (추후 공지)</p>
+          <?php }else{?>
+            <h4><span class="glyphicon glyphicon-camera"></span> 예심 프로그램</h4>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;">서경대학교 오디션홀</p>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;">2020.02 (추후 공지)</p>
+          <?php  } ?>
+
         </div>
         <div class="modal-body">
+
           <form role="form">
             <div class="form-group">
               <label for="psw"><span class="glyphicon glyphicon-user"></span> 본심 진출자 20명 선발</label>
-              <br>(크리에이터 부문: 10명 / 배우 부문: 10명)
+              <br>(크리에이터 부문: 10명 / <br>배우 부문: 10명)
               <!--<input type="number" class="form-control" id="psw" placeholder="What time?">-->
             </div>
             <div class="form-group">
@@ -276,13 +289,18 @@
                 <button type="button" type="button" onclick="location.href='https://map.naver.com/?query=서울시+성북구+서경로+137+'" class="btn btn-block">
                 <span class="glyphicon glyphicon-search">  지 도</span>
               </button>
+              <div class="form-group">
+                <div class="thumbnail">
+                  <img src="img/audition_hall.jpeg" alt="">
+                </div>
+              </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
             <span class="glyphicon glyphicon-remove"></span> 닫기
           </button>
-          <p>Need <a href="#">help?</a></p>
+          <!--<p>Need <a href="#">help?</a></p>-->
         </div>
       </div>
     </div>
@@ -297,7 +315,15 @@
       <div class="modal-content text-center">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4><span class="glyphicon glyphicon-camera"></span> 본심 프로그램</h4>
+          <?php if ($obj -> mobileConcertCheck() == "mobile") { ?>
+            <h4><span class="glyphicon glyphicon-camera"></span> <span style="font-size:25px;">본심 프로그램</span></h4>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;font-size:20px;">(장소 추후 공지)</p>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;font-size:20px;">2020.02 (추후 공지)</p>
+          <?php }else{?>
+            <h4><span class="glyphicon glyphicon-camera"></span> 본심 프로그램</h4>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:0px;">(장소 추후 공지)</p>
+            <p style="color:#bdbdbd;margin-top:0px;margin-bottom:5px;">2020.02 (추후 공지)</p>
+          <?php  } ?>
         </div>
         <div class="modal-body">
           <form role="form">
@@ -314,16 +340,21 @@
               <label for="usrname"><span class="glyphicon glyphicon-user"></span> 준비 사항</label>
               <input type="text" class="form-control" id="usrname" placeholder="Check">
             </div>
-                <button type="button" type="button" onclick="location.href='https://map.naver.com/?query=서울시+강남구+논현로+854+'" class="btn btn-block">
+                <button type="button" type="button" onclick="location.href='https://v4.map.naver.com/?sm=clk&query=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C+%EA%B0%95%EB%82%A8%EA%B5%AC+%EB%85%BC%ED%98%84%EB%A1%9C+854'" class="btn btn-block">
                 <span class="glyphicon glyphicon-search">  지 도</span>
               </button>
+              <div class="form-group">
+                <div class="thumbnail">
+                  <img src="img/andaz.jpg" alt="">
+                </div>
+              </div>
           </form>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-danger btn-default pull-left" data-dismiss="modal">
             <span class="glyphicon glyphicon-remove"></span> 닫기
           </button>
-          <p>Need <a href="#">help?</a></p>
+          <!--<p>Need <a href="#">help?</a></p>-->
         </div>
       </div>
     </div>
@@ -389,12 +420,7 @@
 
 
 <!-- Footer -->
-<footer class="text-center">
-  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a><br><br>
-  <p><a href="https://www.w3schools.com" data-toggle="tooltip" title="Visit w3schools" style="font-size:12px;color:rgb(0, 191, 255);">오멜론 스타 콘테스트@2020</a></p>
-</footer>
+<?php // include_once 'footer.html'; ?>
 
 <script>
 $(document).ready(function(){

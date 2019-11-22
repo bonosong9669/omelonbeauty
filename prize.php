@@ -1,3 +1,5 @@
+<?php include_once 'mobile_check.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -191,8 +193,12 @@
     }
     .navbar li a, .navbar .navbar-brand { /* 로고 글자 */
       color: #d5d5d5 !important;
-      font-size: 14px;
+      font-size: 10px;
     }
+    .navbar-brand .logo {
+      font-size: 17px;
+    }
+
    #carousel_img1 {
       margin-top: 30px;
     }
@@ -204,6 +210,19 @@
    }
    .modal-title {
       font-size: 19px;
+   }
+   .container {
+     padding-left: 20px;
+     padding-right: 20px;
+   }
+   .thumbnail {
+     padding-bottom: 0px;
+     margin-bottom: 0px;
+   }
+   .modal-title {
+     color:#149ecc !important;
+     font-weight: bold;
+     font-size: 16px !important;
    }
 
   }
@@ -342,7 +361,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">2020 뷰티 박람회 참가</h4>
+            <h4 class="modal-title">뷰티 박람회 홍보대사</h4>
           </div>
           <div class="modal-body text-center">
             <div class="thumbnail_">
@@ -527,13 +546,7 @@
 
 
 <!-- Footer -->
-<footer class="text-center">
-  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a><br><br>
-  <p><a href="https://www.w3schools.com" data-toggle="tooltip" title="Visit w3schools" style="font-size:12px;color:rgb(0, 191, 255);">오멜론 스타 콘테스트@2020</a></p>
-</footer>
-</footer>
+<?php // include_once 'footer.html'; ?>
 
 <script>
 $(document).ready(function(){

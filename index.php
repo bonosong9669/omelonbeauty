@@ -1,22 +1,10 @@
-<?php
-//PC? 모바일? 체크 함수
-function MobileCheck() {
-    global $HTTP_USER_AGENT;
-    $MobileArray  = array("iphone","lgtelecom","skt","mobile","samsung","nokia","blackberry","android","android","sony","phone");
-
-    $checkCount = 0;
-        for($i=0; $i<sizeof($MobileArray); $i++){
-            if(preg_match("/$MobileArray[$i]/", strtolower($HTTP_USER_AGENT))){ $checkCount++; break; }
-        }
-   return ($checkCount >= 1) ? "Mobile" : "Computer";
-}
-?>
+<?php include_once 'mobile_check.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>오멜론 뷰티크리에이터</title>
+  <title>오멜론 뷰티크리에이터 선발대회</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -171,43 +159,59 @@ function MobileCheck() {
   }
   .career {color:#fff;}
   #main_copy {
-    font-size:13px;
-    font-weight:500;
-    color:rgb(0, 191, 255);
+    font-size:14px;
+  /*  color:rgb(0, 191, 255);*/
+  color:#11a3d4;
  }
  .navbar-brand .logo {
    font-weight: bold;
+   font-size: 21px;
  }
  .thumbnail {
    padding: 0 0 15px 0;
    border: none;
    border-radius: 0;
    background-color: #000;
+   margin-bottom: 0px;
  }
  #band {
-   padding-top: 10px;
-   padding-bottom: 10px;
+   padding-top: 0px;
+   padding-bottom: 0px;
+   padding-left: 70px;
+   padding-right: 70px;
  }
-
+ #city_img {
+   padding-top: 20px;
+   padding-bottom: 30px;
+ }
 
  /***********모바일 경우 ******************/
  @media (max-width: 768px) {
    #main_copy { /* 로고 글자 */
-     font-size:13px !important;
+     font-size:12px !important;
    }
    .navbar li a, .navbar .navbar-brand { /* 로고 글자 */
      color: #d5d5d5 !important;
-     font-size: 14px;
+     font-size: 10px;
+   }
+   .navbar-brand .logo {
+     font-size: 17px;
    }
   #carousel_img1 {
-     margin-top: 30px;
+     margin-top: 50px;
    }
    #carousel_img2 {
-      margin-top: 30px;
+      margin-top: 50px;
     }
+  .person_caption {
+    font-size: 13px !important;
+  }
+  #city_img {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 
- }
-
+}
   </style>
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -219,7 +223,7 @@ function MobileCheck() {
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
 
     <!-- Indicators -->
-  <!--  <ol class="carousel-indicators">
+   <!--<ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
       <li data-target="#myCarousel" data-slide-to="2"></li>
@@ -229,23 +233,34 @@ function MobileCheck() {
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-            <img src="img/landing_img_a.jpg" id="carousel_img1" alt="" width="1200" height="700">
-      <div class="carousel-caption">
-          <h1>O'melon</h1>
-          <p>뷰티크리에이터 선발대회</p>
-        </div>
-      </div>
+
+      <?php if ($obj -> mobileConcertCheck() == "mobile") { ?>
+        <img src="img/landing_img_red_mobile_caption4_1.png" id="carousel_img1" alt="" width="1200" height="700">
+      <?php }else{?>
+        <!--<img src="img/landing_img_a.jpg" id="carousel_img1" alt="" width="1200" height="700">-->
+        <img src="img/landing_img_red_caption_small.png" id="carousel_img1" alt="" width="1200" height="700">
+    <?php  } ?>
+
+  <!--  <div class="carousel-caption">
+      <h1>O'melon</h1>
+      <p>뷰티크리에이터 선발대회</p>
+    </div>-->
+
+  </div>
 
      <div class="item">
-        <img src="img/landing_img_b.jpg" id="carousel_img2" alt="" width="1200" height="700">
-        <div class="carousel-caption">
+       <?php if ($obj -> mobileConcertCheck() == "mobile") { ?>
+         <img src="img/landing_img_yellow_mobile_caption8_1.png" id="carousel_img1" alt="" width="1200" height="700">
+       <?php }else{?>
+         <!--<img src="img/landing_img_a.jpg" id="carousel_img1" alt="" width="1200" height="700">-->
+         <img src="img/landing_img_yellow_caption_small.png" id="carousel_img1" alt="" width="1200" height="700">
+     <?php  } ?>
+
+        <!--<div class="carousel-caption">
           <h1>O'melon</h1>
           <p>크리에이터 부문 / 액터 부문</p>
-        </div>
+        </div>-->
       </div>
-
-
-
 <!--
     <div class="item">
             <img src="landing_img_7.jpg" alt="Los Angeles" width="1200" height="700">
@@ -255,7 +270,6 @@ function MobileCheck() {
             </div>
           </div>
         </div>-->
-
   </div>
 
 
@@ -271,25 +285,89 @@ function MobileCheck() {
 </div>
 
 
-<!-- Container (The Band Section) -->
-<div id="band" class="container text-center aaa">
-
-  <!-- 메인 카피 문구 -->
+<!-- 메인 카피 문구 -->
+<div class="text-center">
   <?php
-  if(MobileCheck() == "Mobile"){ //echo"현재 휴대폰으로 접속했습니다.";?>
-   <!--  모바일 접속 -->
-   <p><span id="main_copy">기업과 함께 성장하는<br><span style="font-weight:bold;">오멜론 뷰티크리에이터</span><br> 선발대회</span></p>
-   <span style="color:rgb(0, 191, 255);font-weight:bold;"><p>알리바바 TOP 왕홍들과의 콜라보</p></span>
+  if($obj -> mobileConcertCheck() == "mobile") {//echo"현재 휴대폰으로 접속했습니다.";?>
+   <!--  모바일 접속-->
+   <br>
+   <p><span id="main_copy" style="font-weight:100;font-size:12px;">기업과 함께 성장하는<br><span style="font-weight:bold;font-size:22px;">오멜론 뷰티크리에이터<br>선발대회</span></span></p>
+
 
   <?php }else{ //echo "현재 컴퓨터로 접속했습니다."; ?>
     <!--  PC 접속 -->
-  <p><h3><span id="main_copy">기업과 함께 성장하는 <span style="font-size:20px;font-weight:bold;">오멜론 뷰티크리에이터</span> 선발대회</span></h3></p>
-  <span style="color:rgb(0, 191, 255);"><p>알리바바 TOP 왕홍들과의 콜라보</p></span>
+  <p><h3><span id="main_copy">기업과 함께 성장하는<br> <span style="font-size:20px;font-weight:bold;">오멜론 뷰티크리에이터 선발대회</span> </span></h3></p>
+
   <?php } //끝_ 컴퓨터 접속 때 모달 ?>
+</div>
 
 
-<br><br>
-  <h5>심사위원</h5>
+
+
+<?php
+if($obj -> mobileConcertCheck() == "mobile") {//echo"현재 휴대폰으로 접속했습니다.";?>
+ <!--  모바일 접속-->
+ <!-- 도시 섹션 mobile-->
+ <div class="container text-center" id=city_img>
+   <span style="color:#11a3d4;"><p style="margin-bottom:0px;"><span style="font-size:13px;">알리바바 </span><strong style="font-size:17px;">TOP 왕홍</strong><span style="font-size:14px;">및
+   <br></span><strong style="font-size:16px;">해외 인플루언서들</strong><span style="font-size:13px;">과 콜라보</span></p></span>
+
+   <div class="row">
+     <div class="col-sm-4">
+       <div class="thumbnail">
+         <img src="img/beijing3_1_mobile.jpg" alt="베이징"width="300">
+       </div>
+     </div>
+     <div class="col-sm-4">
+       <div class="thumbnail">
+         <img src="img/seoul3_1_mobile.jpg" alt="베이징"width="300">
+       </div>
+     </div>
+     <div class="col-sm-4">
+       <div class="thumbnail">
+         <img src="img/tokyo3_1_mobile.jpg" alt="베이징"width="300">
+       </div>
+     </div>
+   </div>
+ </div>
+
+
+<?php }else{ //echo "현재 컴퓨터로 접속했습니다."; ?>
+  <!--  PC 접속 -->
+  <!-- 도시 섹션 PC-->
+  <div class="container text-center" id=city_img>
+<span style="color:#11a3d4;"><p style="margin-bottom:0px;"><span style="font-size:14px;">알리바바 </span><strong style="font-size:17px;">TOP 왕홍</strong><span style="font-size:14px;">및
+</span><strong style="font-size:17px;">해외 인플루언서들</strong><span style="font-size:14px;">과 콜라보</span></p></span>
+<br>
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="img/beijing3_1.jpg" alt="베이징"width="300">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="img/seoul3_1.jpg" alt="베이징"width="300">
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="thumbnail">
+          <img src="img/tokyo3_1.jpg" alt="베이징"width="300">
+        </div>
+      </div>
+    </div>
+  </div>
+
+<?php } //끝_ 컴퓨터 접속 때 모달 ?>
+
+
+
+
+
+<!-- Container (The Band Section) -->
+<div id="band" class="container text-center aaa">
+
+  <h5 style="margin-top:0px;margin-bottom:0px;">심사위원</h5>
   <br>
   <div class="row">
   <!--  <div class="col-sm-3">
@@ -338,32 +416,36 @@ function MobileCheck() {
     </div>-->
 
     <div class="col-sm-3">
-      <div class="thumbnail">
-        <img src="img/kim_new.jpg" class="img-circle person" style="margin-bottom:10px;" alt="김형일 PD" width="255" height="255">
-          <p style="color:#fff;font-size:16px;">김 형 일</p>
-          <p style="color:#fff;font-size:14px;">KBS PD</p>
-      </div>
+    <a href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B9%80%ED%98%95%EC%9D%BC+PD&oquery=%EA%B9%80%ED%98%95%EC%9D%BC+pd&tqi=UOQlFsp0J1ZssbKrVXNssssssjs-504734">
+    <div class="thumbnail">
+        <img src="img/person_kimhyungil.jpg" class="img-circle person" style="margin-bottom:10px;" alt="김형일 PD" width="255" height="255">
+          <p class="person_caption" style="color:#c9c9c9;font-size:15px;">김 형 일<br><span style="color:#e0e0e0#c9c9c9;font-size:13px;">KBS PD</span></p>
+          <!--<p class="person_caption" style="color:#fff;font-size:14px;">KBS PD</p>-->
+      </div></a>
+    </div>
+    <div class="col-sm-3">
+    <a href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EA%B9%80%EC%A4%91%EB%A7%8C&oquery=%EA%B9%80%ED%98%95%EC%9D%BC+PD&tqi=UOQlrsp0JXossRRbq7sssssss54-264578">
+    <div class="thumbnail">
+        <img src="img/person_kimjungman.jpg" class="img-circle person" style="margin-bottom:5px;" alt="김중만 포토그래퍼" width="255" height="255">
+          <p class="person_caption" style="color:#c9c9c9;font-size:15px;">김 중 만<br><span style="color:#c9c9c9;font-size:13px;">사진 작가</span></p>
+          <!--<p style="color:#fff;font-size:14px;">포토그래퍼</p>-->
+      </div></a>
     </div>
     <div class="col-sm-3">
       <div class="thumbnail">
-        <img src="img/kimjung_new.jpg" class="img-circle person" style="margin-bottom:5px;" alt="김중만 포토그래퍼" width="255" height="255">
-          <p style="color:#fff;font-size:16px;">김 중 만</p>
-          <p style="color:#fff;font-size:14px;">포토그래퍼</p>
-      </div>
+   <a href="http://www.dima.ac.kr/sub_03/sub_03_20_2.aspx?mcateNum=18">
+     <img src="img/person_namkungyoung.jpg" class="img-circle person" style="margin-bottom:5px;" alt="남궁영 교수" width="255" height="255">
+        <p class="person_caption" style="color:#c9c9c9;font-size:15px;">남 궁 영<br><span style="color:#c9c9c9;font-size:13px;">동아방송예술대학교 교수</span></p>
+          <!--<p style="color:#fff;font-size:14px;">동아방송예술대학교 교수</p>-->
+      </div></a>
     </div>
     <div class="col-sm-3">
       <div class="thumbnail">
-        <img src="img/nam_new.jpg" class="img-circle person" style="margin-bottom:5px;" alt="남궁영 교수" width="255" height="255">
-          <p style="color:#fff;font-size:16px;">남 궁 영</p>
-          <p style="color:#fff;font-size:14px;">동아방송예술대학교 교수</p>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="thumbnail">
-        <img src="img/song_new.jpg" class="img-circle person" style="margin-bottom:5px;" alt="송창수 감독" width="255" height="255">
-          <p style="color:#fff;font-size:16px;">송 창 수</p>
-          <p style="color:#fff;font-size:14px;">ADM엔터테인먼트 대표/감독</p>
-      </div>
+      <a href="https://search.naver.com/search.naver?sm=tab_hty.top&where=nexearch&query=%EC%86%A1%EC%B0%BD%EC%88%98&oquery=%EC%86%A1%EC%B0%BD%EC%88%98+%EA%B0%90%EB%8F%85&tqi=UOQA5sp0J1sssP2r4UhssssssYK-100150">
+      <img src="img/person_songchangsoo.jpg" class="img-circle person" style="margin-bottom:5px;" alt="송창수 감독" width="255" height="255">
+          <p class="person_caption" style="color:#c9c9c9;font-size:15px;">송 창 수<br><span style="color:#c9c9c9;font-size:13px;">ADM엔터테인먼트 대표/감독</span></p>
+          <!--<p style="color:#fff;font-size:14px;">ADM엔터테인먼트 대표/감독</p>-->
+      </div></a>
     </div>
 
 
@@ -507,16 +589,11 @@ function MobileCheck() {
 
 <!-- sponser -->
 <div class="text-center">
-
 <p>후원사</p>
 </div>
+
 <!-- Footer -->
-<footer class="text-center">
-  <a class="up-arrow" href="#myPage" data-toggle="tooltip" title="TO TOP">
-    <span class="glyphicon glyphicon-chevron-up"></span>
-  </a>
-  <p><a href="http://www.omelon.co.kr" data-toggle="tooltip" title="Visit omelon" style="font-size:12px;color:rgb(0, 191, 255);">오멜론 뷰티크리에이터@2020 </a></p>
-</footer>
+<?php include_once 'footer.html'; ?>
 
 <script>
 $(document).ready(function(){

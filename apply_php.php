@@ -47,11 +47,12 @@ if( $error != UPLOAD_ERR_OK ) {
 }
 
 //배우 이름으로 폴더 생성
-$apply_name_cp949 = iconv("utf-8","CP949",$apply_name);
+//$apply_name_cp949 = iconv("utf-8","CP949",$apply_name); //한글 이름을 변환 (utf-8 ->cp949)
 //$dir_name = "apply_upload/".$apply_name_cp949; //폴더명 이름만
 //$dir_name = "apply_upload/".$apply_name_cp949.'-'.$phone; //폴더명 이름+전화
 //$dir_name = "apply_upload/".$apply_name_cp949.'-'.$email; //폴더명 이름+이메일
-$dir_name = "apply_upload/".$category.'_'.$apply_name_cp949.'_'.$phone.'_'.$email; //폴더명 이름+이메일
+//$dir_name = "apply_upload/".$category.'_'.$apply_name_cp949.'_'.$phone.'_'.$email; //폴더명 이름+이메일
+$dir_name = "apply_upload/".$category.'_'.$apply_name.'_'.$phone.'_'.$email; //폴더명 이름+이메일
 if (!is_dir($dir_name)) {
 	mkdir($dir_name, 0777);
 }
@@ -74,17 +75,19 @@ if( !in_array($ext, $allowed_ext) ) {
 }
 
 // $target_dir = $dir_name."/".$file_name_cp949; // 원래 파일 이름으로 업로드
-$email_rand = $email.'_'.rand(10,100);/// 이메일 주소 + 난수 
+$email_rand = $email.'_'.rand(10,100);/// 이메일 주소 + 난수
 $target_dir = $dir_name."/".$email_rand.'.'.$ext; // 파일 이름을 이메일 이름으로 업로드
 
 if (isset($_FILES['upload']) && $_FILES['upload']['error'] == 0) {
     if (move_uploaded_file($_FILES['upload']['tmp_name'], $target_dir)) {
         echo "upload 성공!!";
         //header("Location: apply_result/o.html"); //페이지 리다이렉션!
+
+        /////////// 신청자 접수 메일 + 제작사에 첨부파일 보내기 //////////////////////
+        include_once 'apply_to_send_email.php';
     }
 
-///////////   신청자에게  접수 메일 보내기 //////////////////////
-include_once 'apply_to_send_email.php';
+
 
 }else { // 파일 업로드 실패했을 때
   header("Location: apply_result/x.html"); //페이지 리다이렉션! 실패
